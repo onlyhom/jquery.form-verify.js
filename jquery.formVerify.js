@@ -96,7 +96,7 @@
 
         function checkbox(dom,index,name){
             var isCheck = false;
-            var chkArray= document.getElementsByName(name); 
+            var chkArray= document.getElementsByClassName(name); 
             for(var i=0;i<chkArray.length;i++){
                 if(chkArray[i].checked){ 
                     isCheck = true;
@@ -171,7 +171,7 @@
 
                         case 'checkbox':
                             (function (i) {
-                                $('input[name='+option.data[i].name+']').on('blur',function(){
+                                $('.'+option.data[i].name).on('blur',function(){
                                     checkbox($('#'+option.data[i].id),i,option.data[i].name); 
                                 });
                             })(i);
