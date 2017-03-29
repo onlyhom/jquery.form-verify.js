@@ -57,7 +57,7 @@
 
         function checkCode(dom,index){
             var value = dom.val();
-            if(!(/^([a-z]|[A-Z]|[0-9]){4}$/.test(value))){ 
+            if(!(/^([a-z]|[A-Z]|[0-9]){6}$/.test(value))){ 
                 checkError(dom,index);
             }else{
                 checkSuccess(dom,index);
@@ -67,7 +67,7 @@
         function checkString(dom,index){
             var value = dom.val();
             //if(!(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/.test(value))){  
-            var testString = /^\w{8,}$/;
+            var testString = /^\w{6,}$/;
             if(!(testString.test(value))){ 
                 checkError(dom,index);
             }else{
@@ -210,7 +210,7 @@
                     console.log(result);
                     return false;
                 }else{
-                    option.callback();
+                    return option.callback();
                 }
             });
         });
