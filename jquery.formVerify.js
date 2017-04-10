@@ -190,7 +190,7 @@
             init();
 
             //点击提交时验证
-            $(this).find('#submit').click(function(){
+            $(this).find(':submit').click(function(){
                 
                 //点击提交时检查是否同意
                 if($(this).hasClass('disabled')){
