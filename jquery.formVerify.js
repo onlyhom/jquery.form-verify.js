@@ -46,6 +46,28 @@
             }
         }
 
+        function checkNamePhone(dom,index){
+            var value = dom.val();
+            var testString = /^\w{6,}$/;
+            if((testString.test(value))||(/^1[34578]\d{9}$/.test(value))){ 
+                checkSuccess(dom,index); 
+            }else{ //判断通过
+                checkError(dom,index);
+            }
+        }
+
+        function checkID(dom,index){
+            var value = dom.val();
+            if(!(/(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$)/.test(value))){
+                alert('no');
+                checkSuccess(dom,index);
+            }else{
+                alert('yes');
+                checkError(dom,index);;
+            }
+        }
+
+
         function checkEmail(dom,index){
             var value = dom.val();
             if(!(/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test(value))){ 
@@ -107,6 +129,8 @@
         }
 
 
+
+
         return this.each(function(){
             function init(){
                 for(var i=0;i<option.data.length;i++){
@@ -125,6 +149,14 @@
                             (function (i) {
                                 $('#'+option.data[i].id).on('blur',function(){
                                     checkPhone($(this),i); 
+                                });
+                            })(i);
+                            break;
+
+                        case 'checkNamePhone':
+                            (function (i) {
+                                $('#'+option.data[i].id).on('blur',function(){
+                                    checkNamePhone($(this),i); 
                                 });
                             })(i);
                             break;
@@ -177,6 +209,14 @@
                             })(i);
                             break;
 
+                        case 'checkID':
+                            (function (i) {
+                                $('.'+option.data[i].name).on('blur',function(){
+                                    checkID($(this),i); 
+                                });
+                            })(i);
+                            break;
+
                         default:
                             (function (i) {
                                 $('#'+option.data[i].id).on('blur',function(){
@@ -190,8 +230,7 @@
             init();
 
             //点击提交时验证
-            $(this).find(':submit').click(function(){
-                
+            $(this).find(":submit").click(function(){                
                 //点击提交时检查是否同意
                 if($(this).hasClass('disabled')){
                     return false; 
