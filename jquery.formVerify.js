@@ -37,6 +37,15 @@
             }
         }
 
+        function checkID(dom,index){
+            var value = dom.val();
+            if(!(/(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$)/.test(value))){
+				checkError(dom,index);
+            }else{
+				checkSuccess(dom,index);
+            }
+        }
+
         function checkPhone(dom,index){
             var value = dom.val();
             if(!(/^1[34578]\d{9}$/.test(value))){
@@ -55,18 +64,6 @@
                 checkError(dom,index);
             }
         }
-
-        function checkID(dom,index){
-            var value = dom.val();
-            if(!(/(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$)/.test(value))){
-                alert('no');
-                checkSuccess(dom,index);
-            }else{
-                alert('yes');
-                checkError(dom,index);;
-            }
-        }
-
 
         function checkEmail(dom,index){
             var value = dom.val();
@@ -134,7 +131,6 @@
         return this.each(function(){
             function init(){
                 for(var i=0;i<option.data.length;i++){
-
                     switch(option.data[i].check)
                     {
                         case 'checkNull':
@@ -211,14 +207,14 @@
 
                         case 'checkID':
                             (function (i) {
-                                $('.'+option.data[i].name).on('blur',function(){
-                                    checkID($(this),i); 
+                                $('#'+option.data[i].id).on('blur',function(){
+                                    checkID($(this),i);
                                 });
                             })(i);
                             break;
 
                         default:
-                            (function (i) {
+                            (function (i) { 
                                 $('#'+option.data[i].id).on('blur',function(){
                                     checkNull($(this),i); 
                                 });
@@ -236,9 +232,81 @@
                     return false; 
                 }
 
+                for(var i=0;i<option.data.length;i++){
+
+                    switch(option.data[i].check)
+                    {
+                        case 'checkNull':
+                            (function (i) {
+                            	checkNull($('#'+option.data[i].id),i); 
+                            })(i);
+                            break;
+
+                        case 'checkPhone':
+                            (function (i) {
+                            	checkPhone($('#'+option.data[i].id),i); 
+                            })(i);
+                            break;
+
+                        case 'checkNamePhone':
+                            (function (i) {
+                            	checkNamePhone($('#'+option.data[i].id),i); 
+                            })(i);
+                            break;
+
+                        case 'checkEmail':
+                            (function (i) {
+                            	checkEmail($('#'+option.data[i].id),i); 
+                            })(i);
+                            break;
+
+                        case 'checkCode':
+                            (function (i) {
+                            	checkCode($('#'+option.data[i].id),i); 
+                            })(i);
+                            break;
+
+                        case 'checkString':
+                            (function (i) {
+                            	checkString($('#'+option.data[i].id),i); 
+                            })(i);
+                            break;
+
+                        case 'checkConfirm':
+                            (function (i) {
+                                checkConfirm($('#'+option.data[i].id),i,$('#'+option.data[i].compareObject));
+                            })(i);
+                            break;
+
+                        case 'checkOn':
+                            (function (i) {
+                            	checkOn($('#'+option.data[i].id),i); 
+                            })(i);
+                            break;
+
+                        case 'checkbox':
+                            (function (i) {
+                            	checkbox($('#'+option.data[i].id),i); 
+                            })(i);
+                            break;
+
+                        case 'checkID':
+                            (function (i) {
+                            	checkID($('#'+option.data[i].id),i); 
+                            })(i);
+                            break;
+
+                        default:
+                            (function (i) {
+                            	checkNull($('#'+option.data[i].id),i); 
+                            })(i);
+                            break;
+                    }
+                }
+
                 var state = true;
                 for( var k=0; k<result.length; k++){
-                    if (!result[k]){ //只要result中有一个为假则不允许通过
+                    if (!result[k]){ //只要result中有一个为false则不允许通过
                         state = false;
                         checkError($('#'+option.data[k].id),k);
                         break;
